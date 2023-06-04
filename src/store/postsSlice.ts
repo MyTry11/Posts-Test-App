@@ -4,7 +4,7 @@ import { AppDispatch } from "./store";
 
 // https://jsonplaceholder.typicode.com/comments?postId=1
 
-interface Post {
+export interface IPost {
   userId: number;
   id: number;
   title: string;
@@ -12,7 +12,7 @@ interface Post {
 }
 
 interface InState {
-  value: Post[];
+  value: IPost[];
 }
 
 const initialState: InState = {
@@ -23,17 +23,15 @@ export const postsSlice = createSlice({
   name: "posts",
   initialState,
   reducers: {
-    setPosts: (state: InState, action: PayloadAction<Post[]>) => {
+    setPosts: (state: InState, action: PayloadAction<IPost[]>) => {
       state.value = action.payload;
     },
   },
 });
 
-export const postsAsync = () => (useAppDispatch: AppDispatch) => {
-  fetch("https://jsonplaceholder.typicode.com/posts").then((json) =>
-    json
-      .json()
-      .then((json) => useAppDispatch(postsSlice.actions.setPosts(json)))
+export const postsAsync = (url: string) => (useAppDispatch: AppDispatch) => {
+  fetch(url).then((json) =>
+    json.json().then((json) => useAppDispatch(setPosts(json)))
   );
 };
 export const { setPosts } = postsSlice.actions;
