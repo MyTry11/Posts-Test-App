@@ -14,9 +14,9 @@ export default function PostsList() {
     <main className="">
       <ul className="postsContainer pt-10">
         {Boolean(posts.length) ? (
-          posts.map((el) => <Post key={el.id} el={el}></Post>)
+          posts.map((el) => <Post key={el.id} post={el}></Post>)
         ) : (
-          <li>"No posts found"</li>
+          <li>Loading posts...</li>
         )}
       </ul>
     </main>

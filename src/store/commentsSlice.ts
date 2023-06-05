@@ -16,7 +16,7 @@ export interface IComment {
 //   value: IComment[];
 // }
 
-const postId: string = "postId";
+const postId: string = "postId"; //костыль для setComments2
 interface InStateTest {
   value: {
     [key: string]: IComment[];

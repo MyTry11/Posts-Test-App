@@ -1,21 +1,11 @@
-import React, { useEffect } from "react";
-import Accordion from "react-bootstrap/Accordion";
 import { IPost } from "../store/postsSlice";
 import Comment from "./Comment";
-import { useAppDispatch, useAppSelector } from "../hooks";
-import { commentsAsync } from "../store/commentsSlice";
 
-interface Props {
-  el: IPost;
+export interface PropsPost {
+  post: IPost;
 }
 
-export default function Post({ el }: Props) {
-  const dispatch = useAppDispatch();
-  const comments = useAppSelector((state) => state.comments.value);
-  const getComments = (url: string) => {
-    dispatch(commentsAsync(url));
-  };
-
+export default function Post({ post }: PropsPost) {
   return (
     <li className="post w-[40rem] border-2	border-slate-400	rounded-md p-3 mb-2">
       <div className="flex">
@@ -24,40 +14,11 @@ export default function Post({ el }: Props) {
           src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCGY21P4hAYMUg6fJtc0vW2fFt-Y5PdcA9gN5rv92WJw&s"
           alt=""
         />
-        <h5 className="postTitle ">{el.title}</h5>
+        <h5 className="postTitle ">{post.title}</h5>
       </div>
       <div>
-        <p className="postBody">{el.body}</p>
-        <Accordion>
-          <Accordion.Item eventKey="0">
-            <Accordion.Header
-              onClick={() =>
-                getComments(
-                  `https://jsonplaceholder.typicode.com/posts/${el.id}/comments`
-                )
-              }
-            >
-              Comments
-            </Accordion.Header>
-            <Accordion.Body>
-              {Boolean(comments[el.id]) &&
-                comments[el.id].map((comment) => (
-                  <div key={comment.id} className="flex border-b-2 mb-4">
-                    <img
-                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCGY21P4hAYMUg6fJtc0vW2fFt-Y5PdcA9gN5rv92WJw&s"
-                      alt=""
-                      className="w-12 h-12 mr-2"
-                    />
-                    <div>
-                      <h6>{comment.name}</h6>
-                      <p>{comment.body}</p>
-                    </div>
-                    {/* {comment.postId} {comment.name} */}
-                  </div>
-                ))}
-            </Accordion.Body>
-          </Accordion.Item>
-        </Accordion>
+        <p className="postBody">{post.body}</p>
+        <Comment post={post}></Comment>
       </div>
     </li>
   );
