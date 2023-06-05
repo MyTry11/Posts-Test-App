@@ -42,8 +42,17 @@ export default function Post({ el }: Props) {
             <Accordion.Body>
               {Boolean(comments[el.id]) &&
                 comments[el.id].map((comment) => (
-                  <div key={comment.id}>
-                    {comment.postId} {comment.name}
+                  <div key={comment.id} className="flex border-b-2 mb-4">
+                    <img
+                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCGY21P4hAYMUg6fJtc0vW2fFt-Y5PdcA9gN5rv92WJw&s"
+                      alt=""
+                      className="w-12 h-12 mr-2"
+                    />
+                    <div>
+                      <h6>{comment.name}</h6>
+                      <p>{comment.body}</p>
+                    </div>
+                    {/* {comment.postId} {comment.name} */}
                   </div>
                 ))}
             </Accordion.Body>
