@@ -1,8 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { AppDispatch } from "./store";
-
-// https://jsonplaceholder.typicode.com/comments?postId=1
+// import { AppDispatch } from "./store";
 
 export interface IPost {
   userId: number;
@@ -24,16 +22,22 @@ export const postsSlice = createSlice({
   initialState,
   reducers: {
     setPosts: (state: InState, action: PayloadAction<IPost[]>) => {
-      state.value = action.payload;
+      state.value =
+        // action.payload;
+        [...state.value, ...action.payload]; //дублирует одну страницу
+    },
+    loadPosts: (state, action) => {
+      // if (state.value.length !== 10) {
+      state.value = [...state.value, ...action.payload];
+      //   console.log(state.value.length);
+      // } else {
+      //   state.value = action.payload;
+      //   console.log("else");
+      // }
     },
   },
 });
 
-export const postsAsync = (url: string) => (useAppDispatch: AppDispatch) => {
-  fetch(url).then((json) =>
-    json.json().then((json) => useAppDispatch(setPosts(json)))
-  );
-};
-export const { setPosts } = postsSlice.actions;
+export const { setPosts, loadPosts } = postsSlice.actions;
 
 export default postsSlice.reducer;

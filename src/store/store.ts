@@ -1,6 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
 import postsReducer from "./postsSlice";
 import commentsReducer from "./commentsSlice";
+import currentPageReducer from "./currentPageSlice";
+import isFetchingReducer from "./isFetchingSlice";
 
 // import {}
 
@@ -8,10 +10,8 @@ export const store = configureStore({
   reducer: {
     posts: postsReducer,
     comments: commentsReducer,
-    // counter: counterSlice,
-    // errorReducer: errorReducer,
-    // inputReducer: inputReducer,
-    // postsReducer: postsReducer,
+    currentPage: currentPageReducer,
+    isFetching: isFetchingReducer,
   },
 });
 
